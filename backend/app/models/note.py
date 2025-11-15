@@ -2,7 +2,7 @@ from sqlalchemy import Column,Integer,String,Text,DataTime
 from sqlalchemy.sql import func 
 from ..db.session import Base
 
-
+#Note derived class for create table for database 
 class Note(Base):
     __tablename__ = "Note"
 
