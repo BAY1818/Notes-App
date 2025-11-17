@@ -27,9 +27,18 @@ def note_update(db:Session, note_id : int, note_data:UpdateNote):
     if note_data.content is not None:
         note.content = note_data.content
 
-    db.refresh()
-    db.commit() 
+    db.commit()
+    db.refresh(note)
+    return note 
 
+def note_delete(db:Session, note_id : int):
+    note = get_note_id(db, note_id)
+    if not note:
+        return None
+    db.delete(note)
+    db.commit
+    return True
+    
 
 
 
