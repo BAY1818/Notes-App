@@ -20,9 +20,23 @@ def create_new_note(note_data:CreateNote, db:Session = (Depends(get_db))):
 def read_notes(db:Session = Depends(get_db)):
     return get_notes(db)
 
-@router.get("/{notes}",response_model=ResponseNote)
+@router.get("/{note_id}",response_model=ResponseNote)
 def read_note(db:Session = Depends(get_db), note_id = int):
     note = get_note_id(db,note_id)
     if not note:
         raise HTTPException(status_code=404,detail="Note not found")
     return note
+
+@router.put("/{node_id}",response_model=ResponseNote)
+def update_note(note_data:UpdateNote, note_id = int, db:Session = Depends(get_db)):
+    note = note_update(db,note_id,note_data)
+    if not note:
+        raise HTTPException(status_code=404,detail="Note not found")
+    return note
+
+@router.delete("/{note_id}",response_model=ResponseNote)
+def delete_note(note_id:int, db:Session = Depends(get_db)):
+    result = note_delete(db,note_id)
+    if not result:
+        raise HTTPException(status_code=404,detail = "Note not found")
+    return {"message":"Note Deleted"}
