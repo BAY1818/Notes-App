@@ -1,4 +1,4 @@
-from sqlalchemy import Column,Integer,String,Text,DataTime
+from sqlalchemy import Column,Integer,String,Text,DateTime
 from sqlalchemy.sql import func 
 from ..db.session import Base   
 
@@ -9,4 +9,4 @@ class Note(Base):
     id = Column(Integer, primary_key=True, index=True)          # index is counting for whenever tables created
     title = Column(String(100), nullable=False)                 # nullable=False can't create table if title is empty
     content = Column(Text,nullable=True)                
-    created_at = Column(DataTime(timezone = True), server_default=func.now())   # saves time automatically whenever table is created 
+    created_at = Column(DateTime(timezone = True), server_default=func.now())   # saves time automatically whenever table is created 
