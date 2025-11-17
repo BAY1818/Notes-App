@@ -15,3 +15,14 @@ router = APIRouter(prefix="/notes", tags=["Notes"])
 def create_new_note(note_data:CreateNote, db:Session = (Depends(get_db))):
     note = note_create(db,note_data)
     return note
+
+@router.get("/",response_model=list[ResponseNote])
+def read_notes(db:Session = Depends(get_db)):
+    return get_notes(db)
+
+@router.get("/{notes}",response_model=ResponseNote)
+def read_note(db:Session = Depends(get_db), note_id = int):
+    note = get_note_id(db,note_id)
+    if not note:
+        raise HTTPException(status_code=404,detail="Note not found")
+    return note
