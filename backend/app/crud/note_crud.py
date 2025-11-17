@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from ..models.note import Note
 from ..schemas.note_schemas import CreateNote, UpdateNote
 
-def note_create(db:Session, note_data:CreateNote):
+def note_create(db:Session, note_data:CreateNote):      
     new_note = Note(title = note_data.title,
                     content = note_data.content)
     
@@ -38,8 +38,3 @@ def note_delete(db:Session, note_id : int):
     db.delete(note)
     db.commit
     return True
-    
-
-
-
-    
